@@ -1,8 +1,15 @@
 package com.xxl.job.admin.core.conf;
 
+import com.xxl.job.admin.dao.XxlJobGroupDao;
+import com.xxl.job.admin.dao.XxlJobInfoDao;
+import com.xxl.job.admin.dao.XxlJobLogDao;
+import com.xxl.job.admin.dao.XxlJobRegistryDao;
+import com.xxl.job.core.biz.AdminBiz;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  * xxl-job config
@@ -21,11 +28,16 @@ public class XxlJobAdminConfig implements InitializingBean{
         adminConfig = this;
     }
 
+    // conf
+
     @Value("${xxl.job.mail.host}")
     private String mailHost;
 
     @Value("${xxl.job.mail.port}")
     private String mailPort;
+
+    @Value("${xxl.job.mail.ssl}")
+    private boolean mailSSL;
 
     @Value("${xxl.job.mail.username}")
     private String mailUsername;
@@ -45,6 +57,22 @@ public class XxlJobAdminConfig implements InitializingBean{
     @Value("${xxl.job.i18n}")
     private String i18n;
 
+    @Value("${xxl.job.accessToken}")
+    private String accessToken;
+
+    // dao, service
+
+    @Resource
+    public XxlJobLogDao xxlJobLogDao;
+    @Resource
+    public XxlJobInfoDao xxlJobInfoDao;
+    @Resource
+    public XxlJobRegistryDao xxlJobRegistryDao;
+    @Resource
+    public XxlJobGroupDao xxlJobGroupDao;
+    @Resource
+    public AdminBiz adminBiz;
+
 
     public String getMailHost() {
         return mailHost;
@@ -52,6 +80,10 @@ public class XxlJobAdminConfig implements InitializingBean{
 
     public String getMailPort() {
         return mailPort;
+    }
+
+    public boolean isMailSSL() {
+        return mailSSL;
     }
 
     public String getMailUsername() {
@@ -76,6 +108,30 @@ public class XxlJobAdminConfig implements InitializingBean{
 
     public String getI18n() {
         return i18n;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public XxlJobLogDao getXxlJobLogDao() {
+        return xxlJobLogDao;
+    }
+
+    public XxlJobInfoDao getXxlJobInfoDao() {
+        return xxlJobInfoDao;
+    }
+
+    public XxlJobRegistryDao getXxlJobRegistryDao() {
+        return xxlJobRegistryDao;
+    }
+
+    public XxlJobGroupDao getXxlJobGroupDao() {
+        return xxlJobGroupDao;
+    }
+
+    public AdminBiz getAdminBiz() {
+        return adminBiz;
     }
 
 }
